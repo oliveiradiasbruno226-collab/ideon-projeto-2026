@@ -115,7 +115,7 @@ begin
   values (
     new.id,
     coalesce(new.raw_user_meta_data->>'display_name', 'Novo membro'),
-    nullif(new.raw_user_meta_data->>'username', '')
+    'u_' || substr(replace(new.id::text, '-', ''), 1, 20)
   )
   on conflict (id) do nothing;
   return new;
