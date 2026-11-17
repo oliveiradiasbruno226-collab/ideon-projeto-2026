@@ -96,6 +96,16 @@ $$;
 revoke all on function public.is_conversation_member(uuid) from public;
 grant execute on function public.is_conversation_member(uuid) to authenticated;
 
+create or replace function public.is_conversation_creator(p_conversation_id uuid)
+returns boolean language sql stable security definer set search_path = public as $
+  select exists (
+    select 1 from public.conversations c
+    where c.id = p_conversation_id and c.created_by = auth.uid()
+  );
+$;
+revoke all on function public.is_conversation_creator(uuid) from public;
+grant execute on function public.is_conversation_creator(uuid) to authenticated;
+
 create or replace function public.is_blocked_between(user_a uuid, user_b uuid)
 returns boolean language sql stable security definer set search_path = public as $$
   select exists (
@@ -167,7 +177,7 @@ drop policy if exists "conversation creator adds members" on public.conversation
 create policy "conversation creator adds members" on public.conversation_members for insert to authenticated
 with check (
   user_id = auth.uid()
-  or exists (select 1 from public.conversations c where c.id = conversation_id and c.created_by = auth.uid())
+  or public.is_conversation_creator(conversation_id)
 );
 drop policy if exists "members update own membership" on public.conversation_members;
 create policy "members update own membership" on public.conversation_members for update to authenticated
@@ -232,14 +242,19 @@ declare actor uuid;
 declare target_post uuid;
 declare event_kind text;
 begin
-  actor := coalesce(new.follower_id, new.user_id, new.author_id);
-  target_post := coalesce(new.post_id, null);
   if tg_table_name = 'follows' then
-    recipient := new.following_id; event_kind := 'follow';
+    actor := new.follower_id;
+    recipient := new.following_id;
+    event_kind := 'follow';
+    target_post := null;
   elsif tg_table_name = 'post_likes' then
+    actor := new.user_id;
+    target_post := new.post_id;
     select author_id into recipient from public.posts where id = new.post_id;
     event_kind := 'like';
   elsif tg_table_name = 'comments' then
+    actor := new.author_id;
+    target_post := new.post_id;
     select author_id into recipient from public.posts where id = new.post_id;
     event_kind := 'comment';
   end if;
