@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ffffff">
+<title>IDEON — Sua inteligência em ideias</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #f7f8fc;
+  color: #171923;
+  padding-bottom: 90px;
+}
+
+header {
+  background: white;
+  padding: 22px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: 850;
+  letter-spacing: -1.5px;
+}
+
+.logo span {
+  color: #7657ed;
+}
+
+.avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #eee9ff;
+  color: #7657ed;
+  display: grid;
+  place-items: center;
+  font-weight: bold;
+}
+
+main {
+  padding: 24px 18px;
+  max-width: 650px;
+  margin: auto;
+}
+
+.welcome {
+  margin-bottom: 25px;
+}
+
+.welcome h1 {
+  font-size: 27px;
+  margin-bottom: 7px;
+}
+
+.welcome p {
+  color: #777b8a;
+  font-size: 14px;
+}
+
+.search {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #e8e8ef;
+  border-radius: 13px;
+  background: white;
+  font-size: 14px;
+  outline: none;
+  margin-bottom: 22px;
+}
+
+.search:focus, textarea:focus {
+  border-color: #7657ed;
+}
+
+.create {
+  background: linear-gradient(120deg, #7657ed, #9279f6);
+  color: white;
+  border-radius: 17px;
+  padding: 21px;
+  margin-bottom: 27px;
+}
+
+.create h2 {
+  font-size: 19px;
+  margin-bottom: 7px;
+}
+
+.create p {
+  font-size: 13px;
+  opacity: .9;
+  margin-bottom: 16px;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+  font-weight: 650;
+  font-size: 14px;
+}
+
+.create button {
+  background: white;
+  color: #7657ed;
+  padding: 12px 17px;
+  border-radius: 10px;
+}
+
+.section-title {
+  font-size: 18px;
+  margin-bottom: 14px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.card {
+  background: white;
+  border: 1px solid #eeeef3;
+  padding: 17px;
+  border-radius: 15px;
+  text-align: left;
+}
+
+.card .icon {
+  font-size: 23px;
+  margin-bottom: 12px;
+}
+
+.card h3 {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.card p {
+  font-size: 11px;
+  color: #858895;
+}
+
+.idea {
+  background: white;
+  padding: 17px;
+  border: 1px solid #eeeef3;
+  border-radius: 14px;
+  margin-bottom: 11px;
+}
+
+.idea h3 {
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+
+.idea p {
+  font-size: 13px;
+  color: #777b8a;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+.idea small {
+  display: block;
+  color: #999;
+  margin-top: 10px;
+}
+
+.delete {
+  color: #d14b65;
+  background: transparent;
+  margin-top: 12px;
+  font-size: 12px;
+}
+
+nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: space-around;
+  padding: 12px 4px 20px;
+  z-index: 10;
+}
+
+nav button {
+  background: transparent;
+  color: #858895;
+  font-size: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+nav button span {
+  font-size: 20px;
+}
+
+nav button.active {
+  color: #7657ed;
+}
+
+.view {
+  display: none;
+}
+
+.view.active {
+  display: block;
+}
+
+textarea {
+  width: 100%;
+  min-height: 125px;
+  padding: 14px;
+  border: 1px solid #e8e8ef;
+  border-radius: 12px;
+  font: inherit;
+  resize: vertical;
+  outline: none;
+  margin: 15px 0;
+}
+
+.primary {
+  background: #7657ed;
+  color: white;
+  padding: 14px 20px;
+  border-radius: 11px;
+  width: 100%;
+}
+
+.info {
+  background: white;
+  border: 1px solid #eee;
+  border-radius: 15px;
+  padding: 18px;
+  margin-bottom: 12px;
+  line-height: 1.6;
+  color: #686b78;
+  font-size: 14px;
+}
+
+.empty {
+  color: #888;
+  font-size: 13px;
+  padding: 18px 0;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">IDE<span>ON</span></div>
+  <div class="avatar">I</div>
+</header>
+
+<main>
+
+<section id="inicio" class="view active">
+  <div class="welcome">
+    <h1>Suas ideias começam aqui.</h1>
+    <p>Um espaço para pensar, criar e transformar.</p>
+  </div>
+
+  <input class="search" id="search" placeholder="⌕  Pesquisar suas ideias..." oninput="renderIdeas()">
+
+  <div class="create">
+    <h2>Uma ideia na sua cabeça?</h2>
+    <p>Não deixe que ela se perca. Registre agora.</p>
+    <button onclick="show('criar')">＋ Nova ideia</button>
+  </div>
+
+  <h2 class="section-title">Seu universo</h2>
+
+  <div class="grid">
+    <button class="card" onclick="show('memoria')">
+      <div class="icon">🧠</div>
+      <h3>Memória</h3>
+      <p>Suas ideias guardadas</p>
+    </button>
+
+    <button class="card" onclick="show('comunidade')">
+      <div class="icon">🌎</div>
+      <h3>Comunidade</h3>
+      <p>Compartilhe pensamentos</p>
+    </button>
+
+    <button class="card" onclick="show('ia')">
+      <div class="icon">✦</div>
+      <h3>IDEON IA</h3>
+      <p>Inteligência para criar</p>
+    </button>
+
+    <button class="card" onclick="show('perfil')">
+      <div class="icon">👤</div>
+      <h3>Meu perfil</h3>
+      <p>Seu espaço pessoal</p>
+    </button>
+  </div>
+
+  <h2 class="section-title">Ideias recentes</h2>
+  <div id="recent"></div>
+</section>
+
+<section id="criar" class="view">
+  <h1>Nova ideia ✨</h1>
+  <p style="color:#888;margin-top:8px">Toda grande criação começa com um pensamento.</p>
+
+  <textarea id="ideaText" placeholder="Escreva sua ideia aqui..."></textarea>
+
+  <button class="primary" onclick="saveIdea()">Guardar na minha memória</button>
+</section>
+
+<section id="memoria" class="view">
+  <h1>Minha memória 🧠</h1>
+  <p style="color:#888;margin:8px 0 20px">Tudo aquilo que você não quer esquecer.</p>
+  <div id="allIdeas"></div>
+</section>
+
+<section id="comunidade" class="view">
+  <h1>Comunidade 🌎</h1>
+  <p style="color:#888;margin:10px 0 20px">Um lugar para compartilhar conhecimento e ideias.</p>
+  <div class="info">
+    <h3>Em desenvolvimento</h3>
+    <p>A comunidade permitirá publicar ideias, conhecer criadores, colaborar em projetos e descobrir novas oportunidades.</p>
+  </div>
+</section>
+
+<section id="ia" class="view">
+  <h1>IDEON IA ✦</h1>
+  <p style="color:#888;margin:10px 0 20px">Seu futuro assistente inteligente.</p>
+
+  <div class="info">
+    <h3>O que queremos construir?</h3>
+    <p>Uma inteligência capaz de encontrar conexões entre suas ideias, recuperar pensamentos antigos, organizar projetos e sugerir novas possibilidades.</p>
+  </div>
+
+  <div class="info">
+    <strong>Primeira missão</strong>
+    <p>Guarde suas ideias na memória. Elas serão a base para as futuras funções inteligentes do IDEON.</p>
+  </div>
+  <p style="font-size:11px;color:#999">Esta versão ainda não possui conexão com um modelo de IA.</p>
+</section>
+
+<section id="perfil" class="view">
+  <h1>Meu perfil 👤</h1>
+  <div class="info">
+    <h3>Minha conta IDEON</h3>
+    <p>Seu espaço pessoal de criação e organização.</p>
+  </div>
+  <div class="info">
+    <h3>Minha memória</h3>
+    <p id="count">0 ideias guardadas</p>
+  </div>
+  <div class="info">
+    <h3>Versão</h3>
+    <p>IDEON — Protótipo 0.1</p>
+  </div>
+</section>
+
+</main>
+
+<nav>
+  <button class="active" onclick="show('inicio',this)"><span>⌂</span>Início</button>
+  <button onclick="show('memoria',this)"><span>🧠</span>Memória</button>
+  <button onclick="show('criar',this)"><span>＋</span>Criar</button>
+  <button onclick="show('comunidade',this)"><span>🌎</span>Comunidade</button>
+  <button onclick="show('perfil',this)"><span>♙</span>Perfil</button>
+</nav>
+
+<script>
+let ideas = JSON.parse(localStorage.getItem("ideon_ideas") || "[]");
+
+function show(id, btn) {
+  document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+
+  document.querySelectorAll("nav button").forEach(b => b.classList.remove("active"));
+
+  if(btn) btn.classList.add("active");
+
+  if(id === "memoria") renderIdeas();
+  if(id === "inicio") renderIdeas();
+  if(id === "perfil") updateCount();
+
+  window.scrollTo(0,0);
+}
+
+function saveIdea() {
+  const text = document.getElementById("ideaText").value.trim();
+
+  if(!text) {
+    alert("Escreva sua ideia primeiro.");
+    return;
+  }
+
+  ideas.unshift({
+    id: Date.now(),
+    text: text,
+    date: new Date().toLocaleDateString("pt-BR")
+  });
+
+  localStorage.setItem("ideon_ideas", JSON.stringify(ideas));
+
+  document.getElementById("ideaText").value = "";
+
+  alert("Sua ideia foi guardada!");
+  renderIdeas();
+  updateCount();
+  show("memoria");
+}
+
+function deleteIdea(id) {
+  if(!confirm("Deseja excluir esta ideia?")) return;
+
+  ideas = ideas.filter(i => i.id !== id);
+  localStorage.setItem("ideon_ideas", JSON.stringify(ideas));
+
+  renderIdeas();
+  updateCount();
+}
+
+function renderIdeas() {
+  const recent = document.getElementById("recent");
+  const all = document.getElementById("allIdeas");
+  const search = document.getElementById("search");
+  const term = search ? search.value.toLowerCase() : "";
+
+  const filtered = ideas.filter(i => i.text.toLowerCase().includes(term));
+
+  function card(i) {
+    return `
+      <div class="idea">
+        <p>${escapeHTML(i.text)}</p>
+        <small>Guardada em ${i.date}</small>
+        <button class="delete" onclick="deleteIdea(${i.id})">Excluir ideia</button>
+      </div>`;
+  }
+
+  recent.innerHTML = ideas.length
+    ? ideas.slice(0,3).map(card).join("")
+    : '<p class="empty">Suas primeiras ideias aparecerão aqui.</p>';
+
+  all.innerHTML = filtered.length
+    ? filtered.map(card).join("")
+    : '<p class="empty">Nenhuma ideia encontrada.</p>';
+}
+
+function escapeHTML(text) {
+  return text.replace(/[&<>"']/g, char => ({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#039;"
+  })[char]);
+}
+
+function updateCount() {
+  document.getElementById("count").textContent =
+    ideas.length + (ideas.length === 1 ? " ideia guardada" : " ideias guardadas");
+}
+
+renderIdeas();
+updateCount();
+</script>
+
+</body>
+</html>
