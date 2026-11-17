@@ -307,3 +307,112 @@ begin
 exception when duplicate_object then null;
 when undefined_object then raise notice 'Realtime publication not available.';
 end $$;
+
+
+-- Security hardening: private-account follow requests and message permissions.
+create table if not exists public.follow_requests (
+  requester_id uuid not null references public.profiles(id) on delete cascade,
+  target_id uuid not null references public.profiles(id) on delete cascade,
+  created_at timestamptz not null default now(),
+  primary key (requester_id, target_id),
+  constraint follow_request_no_self check (requester_id <> target_id)
+);
+alter table public.follow_requests enable row level security;
+
+drop policy if exists "members follow as themselves" on public.follows;
+create policy "follow public accounts directly" on public.follows
+for insert to authenticated with check (
+  follower_id = auth.uid()
+  and not coalesce((select s.is_private from public.user_settings s where s.user_id = following_id), false)
+  and not public.is_blocked_between(follower_id, following_id)
+);
+
+drop policy if exists "members read follows" on public.follows;
+create policy "read follows involving member" on public.follows
+for select to authenticated using (follower_id = auth.uid() or following_id = auth.uid());
+
+create policy "requester creates follow request" on public.follow_requests
+for insert to authenticated with check (
+  requester_id = auth.uid()
+  and coalesce((select s.is_private from public.user_settings s where s.user_id = target_id), false)
+  and not public.is_blocked_between(requester_id, target_id)
+);
+create policy "participants read follow requests" on public.follow_requests
+for select to authenticated using (requester_id = auth.uid() or target_id = auth.uid());
+create policy "participants cancel follow requests" on public.follow_requests
+for delete to authenticated using (target_id = auth.uid() or requester_id = auth.uid());
+
+drop policy if exists "profile owner accepts private follow" on public.follows;
+create policy "profile owner accepts private follow" on public.follows
+for insert to authenticated with check (
+  following_id = auth.uid()
+  and coalesce((select s.is_private from public.user_settings s where s.user_id = auth.uid()), false)
+  and exists (
+    select 1 from public.follow_requests r
+    where r.requester_id = follower_id and r.target_id = auth.uid()
+  )
+  and not public.is_blocked_between(follower_id, following_id)
+);
+
+create or replace function public.can_send_conversation_message(p_conversation_id uuid, p_sender_id uuid)
+returns boolean language sql stable security definer set search_path = public as $$
+  select p_sender_id = auth.uid()
+    and exists (
+      select 1 from public.conversation_members mine
+      where mine.conversation_id = p_conversation_id and mine.user_id = p_sender_id
+    )
+    and not exists (
+      select 1
+      from public.conversation_members other_member
+      left join public.user_settings settings on settings.user_id = other_member.user_id
+      where other_member.conversation_id = p_conversation_id
+        and other_member.user_id <> p_sender_id
+        and (
+          public.is_blocked_between(p_sender_id, other_member.user_id)
+          or coalesce(settings.allow_messages, 'followers') = 'nobody'
+          or (
+            coalesce(settings.allow_messages, 'followers') = 'followers'
+            and not exists (
+              select 1 from public.follows f
+              where f.follower_id = p_sender_id and f.following_id = other_member.user_id
+            )
+          )
+        )
+    );
+$$;
+revoke all on function public.can_send_conversation_message(uuid,uuid) from public;
+grant execute on function public.can_send_conversation_message(uuid,uuid) to authenticated;
+
+drop policy if exists "members send messages" on public.messages;
+create policy "members send permitted messages" on public.messages
+for insert to authenticated with check (
+  sender_id = auth.uid()
+  and public.can_send_conversation_message(conversation_id, sender_id)
+);
+
+drop policy if exists "members like as themselves" on public.post_likes;
+create policy "members like readable posts" on public.post_likes
+for insert to authenticated with check (
+  user_id = auth.uid() and exists (select 1 from public.posts p where p.id = post_id)
+);
+drop policy if exists "members comment as themselves" on public.comments;
+create policy "members comment on readable posts" on public.comments
+for insert to authenticated with check (
+  author_id = auth.uid() and exists (select 1 from public.posts p where p.id = post_id)
+);
+
+drop policy if exists "story viewers insert own view" on public.story_views;
+create policy "viewers record permitted story views" on public.story_views
+for insert to authenticated with check (
+  viewer_id = auth.uid()
+  and exists (
+    select 1 from public.stories s
+    where s.id = story_id and s.expires_at > now()
+      and not public.is_blocked_between(auth.uid(), s.author_id)
+      and (
+        s.author_id = auth.uid()
+        or not coalesce((select us.is_private from public.user_settings us where us.user_id = s.author_id), false)
+        or exists (select 1 from public.follows f where f.follower_id = auth.uid() and f.following_id = s.author_id)
+      )
+  )
+);
