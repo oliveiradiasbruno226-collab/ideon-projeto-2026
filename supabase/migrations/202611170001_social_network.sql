@@ -120,9 +120,9 @@ grant execute on function public.is_blocked_between(uuid,uuid) to authenticated;
 
 -- Read privacy settings safely inside RLS policies without exposing settings rows.
 create or replace function public.is_private_account(p_user_id uuid)
-returns boolean language sql stable security definer set search_path = public as $
+returns boolean language sql stable security definer set search_path = public as $privacy$
   select coalesce((select s.is_private from public.user_settings s where s.user_id = p_user_id), false);
-$;
+$privacy$;
 revoke all on function public.is_private_account(uuid) from public;
 grant execute on function public.is_private_account(uuid) to authenticated;
 
