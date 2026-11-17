@@ -2,69 +2,92 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#f7f7f5"><title>IDEON — Suas ideias, em um só lugar</title>
+<meta name="theme-color" content="#ffffff"><meta name="description" content="IDEON — uma rede para compartilhar, desenvolver e descobrir ideias.">
+<title>IDEON — Ideias em movimento</title>
 <style>
-:root{--bg:#f7f7f5;--paper:#fff;--ink:#191919;--muted:#858585;--line:#e9e9e6;--soft:#f0f0ed;--dark:#20201f}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding-bottom:94px;-webkit-font-smoothing:antialiased}
-header{height:66px;padding:0 21px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:#f7f7f5ed;backdrop-filter:blur(16px);border-bottom:1px solid #00000008;z-index:3}
-.logo{font-size:23px;font-weight:800;letter-spacing:-1.4px}.logo span{font-weight:400;color:#888}.avatar{width:34px;height:34px;border-radius:50%;background:#e9e9e5;display:grid;place-items:center;font-size:13px;font-weight:700}
-main{max-width:660px;margin:auto;padding:29px 19px}.view{display:none}.view.active{display:block}
-.kicker{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#999;font-weight:700;margin:0 0 12px}
-h1{font-size:32px;letter-spacing:-1.3px;line-height:1.08;margin:0 0 10px}h2{font-size:18px;letter-spacing:-.4px;margin:0 0 13px}h3{font-size:15px;margin:0 0 7px}
-.sub{font-size:14px;color:var(--muted);line-height:1.5;margin:0 0 25px}
-.hero{background:var(--dark);color:white;border-radius:21px;padding:23px;margin:23px 0 29px}.hero .kicker{color:#aaa}.hero h2{font-size:22px;max-width:250px;line-height:1.2}.hero p{font-size:13px;color:#bbb;line-height:1.5;max-width:260px;margin:0 0 18px}
-button{font:inherit;cursor:pointer}.btn{border:0;border-radius:12px;padding:13px 17px;font-size:13px;font-weight:650}.light{background:white;color:#171717}.dark{background:var(--dark);color:white}.soft{background:var(--soft);color:#333}
-.search{width:100%;height:48px;border:1px solid var(--line);border-radius:13px;padding:0 15px;background:white;font-size:14px;outline:none;margin:3px 0 25px}
-.tiles{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin:0 0 29px}.tile{background:white;border:1px solid var(--line);border-radius:16px;padding:17px;text-align:left;min-height:105px}.tile .symbol{font-size:20px;margin-bottom:12px}.tile strong{display:block;font-size:14px;margin-bottom:4px}.tile small{color:var(--muted);font-size:11px}
-.idea{background:white;border:1px solid var(--line);border-radius:15px;padding:16px;margin:0 0 10px}.idea p{white-space:pre-wrap;overflow-wrap:anywhere;font-size:14px;line-height:1.5;margin:0 0 10px}.idea small{font-size:11px;color:#999}.actions{display:flex;gap:8px;margin-top:12px}.mini{border:0;border-radius:9px;background:var(--soft);padding:8px 11px;font-size:12px;color:#444}.mini.delete{color:#a33}
-textarea{width:100%;min-height:150px;resize:vertical;border:1px solid var(--line);border-radius:14px;padding:15px;font:inherit;font-size:15px;outline:none;margin:17px 0 12px;background:white}
-.primary{width:100%;border:0;border-radius:13px;background:var(--dark);color:white;padding:15px;font-size:14px;font-weight:650}
-.info{background:white;border:1px solid var(--line);border-radius:15px;padding:17px;margin:12px 0;color:#666;font-size:13px;line-height:1.6}.empty{padding:20px 3px;color:#888;font-size:13px}
-nav{position:fixed;bottom:0;left:0;right:0;z-index:4;display:flex;justify-content:space-around;background:#ffffffed;backdrop-filter:blur(18px);border-top:1px solid var(--line);padding:10px 3px calc(12px + env(safe-area-inset-bottom))}
-nav button{border:0;background:none;color:#888;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:10px;min-width:52px}nav button span{font-size:19px}nav button.active{color:#171717;font-weight:700}
-@media(min-width:600px){main{padding-top:42px}.hero{padding:29px}}
-</style></head>
+:root{--bg:#fff;--paper:#fff;--ink:#171717;--muted:#8b8b8b;--line:#ececec;--soft:#f7f7f7;--accent:#292929;--green:#287d62;--serif:Georgia,'Times New Roman',serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;padding-bottom:82px}
+button,input,textarea{font:inherit}button{cursor:pointer}header{height:58px;position:sticky;top:0;z-index:5;background:#ffffffed;backdrop-filter:blur(18px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 max(17px,calc((100vw - 650px)/2))}
+.brand{font-weight:850;font-size:25px;letter-spacing:-1.8px}.brand span{font-weight:350}.head-actions{display:flex;gap:20px;align-items:center}.icon-btn{border:0;background:none;padding:5px;font-size:22px;color:#222}.wrap{max-width:650px;margin:0 auto}.screen{display:none;padding:0 15px}.screen.active{display:block}
+.feed-head{padding:20px 0 8px;display:flex;justify-content:space-between;align-items:end}.eyebrow{font-size:10px;letter-spacing:1.7px;text-transform:uppercase;color:#999;font-weight:700;margin:0 0 8px}.page-title{font-size:27px;letter-spacing:-1.1px;margin:0;font-weight:750}.intro{font-size:13px;color:var(--muted);margin:7px 0 0;line-height:1.45}
+.stories{display:flex;gap:15px;overflow-x:auto;padding:14px 0 18px;scrollbar-width:none}.stories::-webkit-scrollbar{display:none}.story{flex:0 0 63px;text-align:center;border:0;background:none;padding:0;color:#555;font-size:10px}.story-ring{width:59px;height:59px;border-radius:50%;padding:2px;background:conic-gradient(#222,#777,#d6d6d6,#222);margin:0 auto 6px}.story-ring.me{background:#e5e5e5}.story-face{height:100%;width:100%;border:2px solid white;border-radius:50%;display:grid;place-items:center;background:#f3f3f3;color:#555;font-size:20px;font-weight:650}.story-name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.composer{border:1px solid var(--line);border-radius:15px;padding:13px;margin:4px 0 20px;display:flex;gap:11px;align-items:center}.avatar{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:#ededed;font-weight:700;font-size:12px;flex:none}.composer button{border:0;background:none;text-align:left;color:#888;font-size:13px;flex:1;padding:8px 0}
+.post{border-bottom:1px solid var(--line);padding:17px 0 18px}.post-top{display:flex;align-items:center;gap:9px;margin-bottom:13px}.post-author{font-size:12px;font-weight:700}.post-meta{font-size:10px;color:#999;margin-top:3px}.more{margin-left:auto;border:0;background:none;font-size:20px;color:#777}
+.post-cover{border-radius:13px;min-height:125px;padding:20px;display:flex;flex-direction:column;justify-content:space-between;margin-bottom:14px;background:#f2f1ed;color:#252525}.cover-dark{background:#222;color:#fff}.cover-green{background:#e8eee9}.cover-beige{background:#f1eae1}.cover-kicker{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;opacity:.65}.cover-title{font-family:var(--serif);font-size:25px;line-height:1.1;max-width:88%;letter-spacing:-.5px}
+.tag{display:inline-block;font-size:9px;letter-spacing:1.2px;text-transform:uppercase;color:#888;font-weight:700;margin-bottom:8px}.post-title{font-family:var(--serif);font-size:23px;line-height:1.13;letter-spacing:-.45px;margin:0 0 8px;font-weight:500}.post-excerpt{font-size:13px;line-height:1.6;color:#656565;margin:0 0 12px}.post-foot{display:flex;align-items:center;gap:17px}.post-action{border:0;background:none;padding:5px 0;color:#555;font-size:12px;display:flex;align-items:center;gap:5px}.post-action.saved{color:#111;font-weight:700}.read-link{margin-left:auto;border:0;background:none;font-size:11px;font-weight:700;color:#222}
+.bottom-nav{position:fixed;z-index:8;bottom:0;left:0;right:0;background:#ffffffef;backdrop-filter:blur(18px);border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:9px 5px calc(9px + env(safe-area-inset-bottom))}.bottom-nav button{border:0;background:none;color:#999;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:9px;min-width:48px}.bottom-nav button span{font-size:21px;line-height:1.2}.bottom-nav button.active{color:#171717;font-weight:750}.bottom-nav .create-icon{width:29px;height:25px;border:1.5px solid #777;border-radius:8px;font-size:20px;line-height:21px}
+.searchbox{width:100%;border:1px solid var(--line);border-radius:11px;padding:13px 14px;margin:16px 0;background:#fafafa;font-size:13px;outline:none}.category-row{display:flex;gap:8px;overflow:auto;padding:0 0 14px}.chip{border:1px solid var(--line);background:white;border-radius:30px;padding:8px 13px;font-size:11px;white-space:nowrap}.chip.active{background:#222;color:white;border-color:#222}
+.section-label{font-size:11px;font-weight:750;letter-spacing:.8px;text-transform:uppercase;margin:19px 0 8px}.empty{font-size:13px;color:#999;padding:24px 0;line-height:1.5}
+.editor{padding-top:24px}.editor input,.editor textarea{display:block;width:100%;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:15px 0;outline:none;background:white;font-size:16px}.editor input.title-input{font-family:var(--serif);font-size:28px;letter-spacing:-.7px}.editor textarea{min-height:210px;resize:vertical;line-height:1.65;font-size:15px}.editor .hint{font-size:11px;color:#999;line-height:1.5;margin:12px 0 20px}.publish{border:0;border-radius:30px;background:#222;color:white;padding:12px 20px;font-size:12px;font-weight:700}
+.profile-hero{display:flex;align-items:center;gap:15px;padding:24px 0 18px;border-bottom:1px solid var(--line)}.profile-avatar{width:65px;height:65px;border-radius:50%;background:#efefef;display:grid;place-items:center;font-size:22px;font-weight:700}.profile-name{font-size:19px;font-weight:750}.profile-bio{font-size:12px;color:#888;margin-top:4px}.stats{display:flex;gap:28px;padding:17px 0}.stat strong{display:block;font-size:17px}.stat small{font-size:10px;color:#999}
+.article-view{padding:26px 0}.article-view .post-title{font-size:34px;line-height:1.08;margin:12px 0}.article-body{font-family:var(--serif);font-size:18px;line-height:1.8;color:#333;white-space:pre-wrap}.back{border:0;background:none;padding:0 0 18px;color:#777;font-size:12px}
+.notice{background:#f7f7f7;border-radius:13px;padding:15px;font-size:12px;line-height:1.6;color:#777;margin:18px 0}
+@media(min-width:680px){body{border-left:1px solid #f7f7f7;border-right:1px solid #f7f7f7}.screen{padding-left:22px;padding-right:22px}.post{padding-top:22px;padding-bottom:22px}}
+</style>
+</head>
 <body>
-<header><div class="logo">IDE<span>ON</span></div><div class="avatar">I</div></header>
-<main>
-<section id="inicio" class="view active">
-<p class="kicker">Seu espaço criativo</p><h1>Ideias que merecem existir.</h1><p class="sub">Capture pensamentos, organize possibilidades e transforme inspiração em ação.</p>
-<input id="search" class="search" placeholder="⌕  Buscar nas minhas ideias..." oninput="render()">
-<div class="hero"><p class="kicker">Um pensamento pode mudar tudo</p><h2>Teve uma ideia agora?</h2><p>Guarde antes que ela escape. Sua memória criativa começa aqui.</p><button class="btn light" onclick="show('criar')">＋ Registrar ideia</button></div>
-<h2>Seu espaço</h2><div class="tiles">
-<button class="tile" onclick="show('memoria')"><div class="symbol">⌘</div><strong>Minha memória</strong><small>Suas ideias guardadas</small></button>
-<button class="tile" onclick="show('favoritas')"><div class="symbol">♡</div><strong>Favoritas</strong><small>O que merece destaque</small></button>
-<button class="tile" onclick="show('ia')"><div class="symbol">✳</div><strong>IDEON IA</strong><small>Assistente em construção</small></button>
-<button class="tile" onclick="show('comunidade')"><div class="symbol">◎</div><strong>Comunidade</strong><small>Conexões e colaboração</small></button>
-</div><h2>Adicionadas recentemente</h2><div id="recent"></div>
+<header><div class="brand">IDE<span>ON</span></div><div class="head-actions"><button class="icon-btn" aria-label="Pesquisar" onclick="go('explorar')">⌕</button><button class="icon-btn" aria-label="Atividade" onclick="alert('A área de atividade será conectada quando houver contas e comunidade.')">♡</button></div></header>
+<div class="wrap">
+<section id="feed" class="screen active">
+<div class="feed-head"><div><p class="eyebrow">Terça-feira · seu espaço criativo</p><h1 class="page-title">Ideias em movimento.</h1><p class="intro">Inspiração para pensar, criar e fazer acontecer.</p></div></div>
+<div class="stories">
+<button class="story" onclick="go('criar')"><div class="story-ring me"><div class="story-face">＋</div></div><div class="story-name">Sua ideia</div></button>
+<button class="story" onclick="go('explorar')"><div class="story-ring"><div class="story-face">✳</div></div><div class="story-name">Criatividade</div></button>
+<button class="story" onclick="go('explorar')"><div class="story-ring"><div class="story-face">↗</div></div><div class="story-name">Negócios</div></button>
+<button class="story" onclick="go('explorar')"><div class="story-ring"><div class="story-face">◌</div></div><div class="story-name">Tecnologia</div></button>
+<button class="story" onclick="go('explorar')"><div class="story-ring"><div class="story-face">⌁</div></div><div class="story-name">Design</div></button>
+</div>
+<div class="composer"><div class="avatar">I</div><button onclick="go('criar')">Que ideia está passando pela sua cabeça?</button><button class="icon-btn" onclick="go('criar')">＋</button></div>
+<div class="section-label">Para descobrir</div><div id="feedPosts"></div>
 </section>
-<section id="criar" class="view"><p class="kicker">Captura rápida</p><h1>Nova ideia.</h1><p class="sub">Não precisa estar perfeita. Comece escrevendo.</p><textarea id="ideaText" placeholder="Escreva sua ideia aqui..."></textarea><button class="primary" onclick="saveIdea()">Guardar na minha memória</button></section>
-<section id="memoria" class="view"><p class="kicker">Arquivo pessoal</p><h1>Minha memória.</h1><p class="sub">Todas as ideias que você decidiu guardar.</p><div id="allIdeas"></div></section>
-<section id="favoritas" class="view"><p class="kicker">Coleção especial</p><h1>Favoritas.</h1><p class="sub">Ideias marcadas por você.</p><div id="favIdeas"></div></section>
-<section id="ia" class="view"><p class="kicker">Inteligência criativa</p><h1>IDEON IA.</h1><p class="sub">Uma assistente para ajudar suas ideias a evoluírem.</p><div class="info"><h3>Em construção</h3>Esta versão ainda não está conectada a um modelo de inteligência artificial. Por enquanto, guarde suas ideias: elas permanecerão disponíveis neste navegador.</div></section>
-<section id="comunidade" class="view"><p class="kicker">Compartilhar e colaborar</p><h1>Comunidade.</h1><p class="sub">Um espaço para criadores se encontrarem.</p><div class="info"><h3>Próxima etapa</h3>A comunidade pública ainda precisa de contas e banco de dados. Não há publicações compartilhadas nesta versão.</div></section>
-<section id="perfil" class="view"><p class="kicker">Seu espaço</p><h1>Meu perfil.</h1><div class="info"><h3>Minha memória</h3><p id="count">0 ideias guardadas</p></div><div class="info"><h3>Sobre o IDEON</h3>Versão inicial em evolução. Suas ideias ficam armazenadas localmente neste navegador.</div></section>
-</main>
-<nav>
-<button class="active" onclick="show('inicio',this)"><span>⌂</span>Início</button>
-<button onclick="show('memoria',this)"><span>▤</span>Memória</button>
-<button onclick="show('criar',this)"><span>＋</span>Criar</button>
-<button onclick="show('favoritas',this)"><span>♡</span>Favoritas</button>
-<button onclick="show('perfil',this)"><span>◯</span>Perfil</button>
+<section id="explorar" class="screen">
+<div class="feed-head"><div><p class="eyebrow">Explore novas perspectivas</p><h1 class="page-title">Descobrir.</h1><p class="intro">Ideias, temas e pensamentos para abrir caminhos.</p></div></div>
+<input id="search" class="searchbox" placeholder="⌕  Buscar ideias e publicações..." oninput="renderExplore()">
+<div class="category-row"><button class="chip active" onclick="setCategory('Tudo',this)">Tudo</button><button class="chip" onclick="setCategory('Criatividade',this)">Criatividade</button><button class="chip" onclick="setCategory('Negócios',this)">Negócios</button><button class="chip" onclick="setCategory('Tecnologia',this)">Tecnologia</button><button class="chip" onclick="setCategory('Design',this)">Design</button></div>
+<div id="explorePosts"></div>
+</section>
+<section id="criar" class="screen editor">
+<p class="eyebrow">Compartilhe uma ideia</p><h1 class="page-title">O que você está pensando?</h1><p class="intro">Uma ideia curta ou um texto mais profundo. Dê forma ao seu pensamento.</p>
+<input id="newTitle" class="title-input" maxlength="100" placeholder="Dê um título à sua ideia">
+<input id="newCategory" maxlength="30" placeholder="Tema (ex.: Tecnologia, Negócios, Criatividade)">
+<textarea id="newText" maxlength="5000" placeholder="Comece a escrever..."></textarea>
+<p class="hint">Nesta versão, a publicação fica salva apenas neste navegador. Compartilhamento público e perfis conectados serão etapas futuras.</p><button class="publish" onclick="publishPost()">Publicar ideia ↗</button>
+</section>
+<section id="salvos" class="screen">
+<div class="feed-head"><div><p class="eyebrow">Sua coleção pessoal</p><h1 class="page-title">Salvos.</h1><p class="intro">Publicações que você quer revisitar.</p></div></div><div id="savedPosts"></div>
+</section>
+<section id="perfil" class="screen">
+<p class="eyebrow" style="padding-top:24px">Seu espaço no IDEON</p><div class="profile-hero"><div class="profile-avatar">I</div><div><div class="profile-name">Minha página</div><div class="profile-bio">Criador de ideias · Perfil local</div></div></div>
+<div class="stats"><div class="stat"><strong id="statPosts">0</strong><small>Publicações</small></div><div class="stat"><strong id="statSaved">0</strong><small>Salvos</small></div></div><div class="section-label">Minhas publicações</div><div id="myPosts"></div>
+<div class="notice"><strong>Sobre esta versão</strong><br>O IDEON já permite criar, editar, favoritar e guardar ideias neste dispositivo. Login, sincronização, curtidas públicas, comentários, IA conectada e comunidade multiusuário ainda precisam ser implementados.</div>
+</section>
+<section id="article" class="screen"><div class="article-view"><button class="back" onclick="go('feed')">← Voltar ao feed</button><div id="articleContent"></div></div></section>
+</div>
+<nav class="bottom-nav">
+<button class="active" onclick="go('feed',this)"><span>⌂</span>Início</button>
+<button onclick="go('explorar',this)"><span>⌕</span>Explorar</button>
+<button onclick="go('criar',this)"><span class="create-icon">＋</span>Criar</button>
+<button onclick="go('salvos',this)"><span>▱</span>Salvos</button>
+<button onclick="go('perfil',this)"><span>◯</span>Perfil</button>
 </nav>
 <script>
 const STORAGE_KEY="ideon_ideas";
-let ideas=[];
-try{const saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||"[]");ideas=Array.isArray(saved)?saved:[]}catch(e){ideas=[]}
-function persist(){localStorage.setItem(STORAGE_KEY,JSON.stringify(ideas))}
-function show(id,btn){document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));if(btn)btn.classList.add("active");else{const map={inicio:0,memoria:1,criar:2,favoritas:3,perfil:4};document.querySelectorAll("nav button")[map[id]??0].classList.add("active")}render();window.scrollTo(0,0)}
-function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}
-function isFav(i){return i.favorite===true}
-function card(i){const date=esc(i.date||"Data não informada");return '<article class="idea"><p>'+esc(i.text)+'</p><small>Guardada em '+date+'</small><div class="actions"><button class="mini" onclick="toggleFav('+Number(i.id)+')">'+(isFav(i)?"♥ Favorita":"♡ Favoritar")+'</button><button class="mini" onclick="editIdea('+Number(i.id)+')">Editar</button><button class="mini delete" onclick="deleteIdea('+Number(i.id)+')">Excluir</button></div></article>'}
-function render(){const term=(document.getElementById("search")?.value||"").toLocaleLowerCase("pt-BR");const filtered=ideas.filter(i=>String(i.text||"").toLocaleLowerCase("pt-BR").includes(term));const recent=document.getElementById("recent"),all=document.getElementById("allIdeas"),fav=document.getElementById("favIdeas");if(recent)recent.innerHTML=ideas.length?ideas.slice(0,3).map(card).join(""):'<p class="empty">Suas primeiras ideias aparecerão aqui.</p>';if(all)all.innerHTML=filtered.length?filtered.map(card).join(""):'<p class="empty">Nenhuma ideia encontrada.</p>';const favorites=ideas.filter(isFav);if(fav)fav.innerHTML=favorites.length?favorites.map(card).join(""):'<p class="empty">Você ainda não marcou favoritas.</p>';const count=document.getElementById("count");if(count)count.textContent=ideas.length+(ideas.length===1?" ideia guardada":" ideias guardadas")}
-function saveIdea(){const field=document.getElementById("ideaText"),value=field.value.trim();if(!value){alert("Escreva sua ideia primeiro.");return}ideas.unshift({id:Date.now(),text:value,date:new Date().toLocaleDateString("pt-BR"),favorite:false});persist();field.value="";render();show("memoria")}
-function toggleFav(id){const item=ideas.find(i=>Number(i.id)===id);if(!item)return;item.favorite=!item.favorite;persist();render()}
-function editIdea(id){const item=ideas.find(i=>Number(i.id)===id);if(!item)return;const updated=prompt("Edite sua ideia:",item.text);if(updated===null)return;if(!updated.trim()){alert("A ideia não pode ficar vazia.");return}item.text=updated.trim();persist();render()}
-function deleteIdea(id){if(!confirm("Deseja excluir esta ideia?"))return;ideas=ideas.filter(i=>Number(i.id)!==id);persist();render()}
+let posts=[];
+try{const stored=JSON.parse(localStorage.getItem(STORAGE_KEY)||"[]");posts=Array.isArray(stored)?stored.map((p,i)=>({id:p.id||Date.now()+i,title:p.title||"Uma ideia para desenvolver",text:p.text||"",category:p.category||"Ideias",date:p.date||new Date().toLocaleDateString("pt-BR"),favorite:p.favorite===true,liked:p.liked===true,author:p.author||"Você"})):[]}catch(e){posts=[]}
+let activeCategory="Tudo";
+function persist(){localStorage.setItem(STORAGE_KEY,JSON.stringify(posts))}
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function go(id,btn){document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll(".bottom-nav button").forEach(b=>b.classList.remove("active"));if(btn)btn.classList.add("active");else{const ix={feed:0,explorar:1,criar:2,salvos:3,perfil:4};document.querySelectorAll(".bottom-nav button")[ix[id]??0].classList.add("active")}render();window.scrollTo(0,0)}
+function coverClass(p){const n=String(p.id).length%4;return ["","cover-dark","cover-green","cover-beige"][n]}
+function card(p){const title=esc(p.title||"Uma ideia");const text=esc(p.text||"");const excerpt=text.length>175?text.slice(0,175)+"…":text;return '<article class="post"><div class="post-top"><div class="avatar">'+(p.author==="Você"?"I":"✳")+'</div><div><div class="post-author">'+esc(p.author||"Você")+'</div><div class="post-meta">'+esc(p.date)+' · '+esc(p.category||"Ideias")+'</div></div><button class="more" onclick="editPost('+Number(p.id)+')" aria-label="Opções">···</button></div><div class="post-cover '+coverClass(p)+'"><div class="cover-kicker">IDEON · CADERNO DE IDEIAS</div><div class="cover-title">'+title+'</div></div><div class="tag">'+esc(p.category||"Ideias")+'</div><h2 class="post-title">'+title+'</h2><p class="post-excerpt">'+excerpt+'</p><div class="post-foot"><button class="post-action" onclick="toggleLike('+Number(p.id)+')">'+(p.liked?"♥":"♡")+' Gostei</button><button class="post-action '+(p.favorite?"saved":"")+'" onclick="toggleSave('+Number(p.id)+')">'+(p.favorite?"▣ Salvo":"▱ Salvar")+'</button><button class="read-link" onclick="readPost('+Number(p.id)+')">Ler ideia →</button></div></article>'}
+function render(){const feed=document.getElementById("feedPosts"),saved=document.getElementById("savedPosts"),mine=document.getElementById("myPosts");const newest=[...posts].sort((a,b)=>Number(b.id)-Number(a.id));if(feed)feed.innerHTML=newest.length?newest.map(card).join(""):'<div class="empty">Ainda não há ideias no seu feed. Toque em “Criar” e publique a primeira.</div>';if(saved){const arr=newest.filter(p=>p.favorite);saved.innerHTML=arr.length?arr.map(card).join(""):'<div class="empty">As ideias que você salvar aparecerão aqui.</div>'}if(mine)mine.innerHTML=newest.length?newest.map(card).join(""):'<div class="empty">Suas publicações aparecerão aqui.</div>';const a=document.getElementById("statPosts"),b=document.getElementById("statSaved");if(a)a.textContent=posts.length;if(b)b.textContent=posts.filter(p=>p.favorite).length;renderExplore()}
+function renderExplore(){const root=document.getElementById("explorePosts");if(!root)return;const term=(document.getElementById("search")?.value||"").toLocaleLowerCase("pt-BR");const list=[...posts].filter(p=>(activeCategory==="Tudo"||p.category.toLocaleLowerCase("pt-BR")===activeCategory.toLocaleLowerCase("pt-BR"))&&((p.title+" "+p.text+" "+p.category).toLocaleLowerCase("pt-BR").includes(term)));root.innerHTML=list.length?list.map(card).join(""):'<div class="empty">Nenhuma publicação encontrada com esse filtro. Experimente outro tema ou crie uma ideia.</div>'}
+function setCategory(c,btn){activeCategory=c;document.querySelectorAll(".chip").forEach(x=>x.classList.remove("active"));btn.classList.add("active");renderExplore()}
+function publishPost(){const title=document.getElementById("newTitle").value.trim(),text=document.getElementById("newText").value.trim(),category=document.getElementById("newCategory").value.trim()||"Ideias";if(!title&&!text){alert("Escreva um título ou uma ideia antes de publicar.");return}posts.unshift({id:Date.now(),title:title||"Uma ideia para desenvolver",text,date:new Date().toLocaleDateString("pt-BR"),category,favorite:false,liked:false,author:"Você"});persist();document.getElementById("newTitle").value="";document.getElementById("newCategory").value="";document.getElementById("newText").value="";go("feed")}
+function toggleLike(id){const p=posts.find(x=>Number(x.id)===id);if(!p)return;p.liked=!p.liked;persist();render()}
+function toggleSave(id){const p=posts.find(x=>Number(x.id)===id);if(!p)return;p.favorite=!p.favorite;persist();render()}
+function readPost(id){const p=posts.find(x=>Number(x.id)===id);if(!p)return;document.getElementById("articleContent").innerHTML='<div class="tag">'+esc(p.category||"Ideias")+'</div><h1 class="post-title">'+esc(p.title)+'</h1><div class="post-meta" style="margin:12px 0 25px">Por '+esc(p.author||"Você")+' · '+esc(p.date)+'</div><div class="article-body">'+esc(p.text||"Esta ideia ainda não tem um texto complementar.")+'</div><div style="margin-top:24px"><button class="post-action '+(p.favorite?"saved":"")+'" onclick="toggleSave('+Number(p.id)+');readPost('+Number(p.id)+')">'+(p.favorite?"▣ Salvo":"▱ Salvar ideia")+'</button></div>';go("article")}
+function editPost(id){const p=posts.find(x=>Number(x.id)===id);if(!p)return;const value=prompt("Editar título da ideia:",p.title);if(value===null)return;if(!value.trim()){alert("O título não pode ficar vazio.");return}p.title=value.trim();persist();render()}
 render();
-</script></body></html>
+</script>
+</body></html>
